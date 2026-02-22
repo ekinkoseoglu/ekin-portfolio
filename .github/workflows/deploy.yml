@@ -13,9 +13,7 @@ jobs:
       - name: Setup SSH
         run: |
           mkdir -p ~/.ssh
-          cat << 'EOF' > ~/.ssh/deploy_key
-          ${{ secrets.SSH_PRIVATE_KEY }}
-          EOF
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" | sed 's/\r$//' > ~/.ssh/deploy_key
           chmod 600 ~/.ssh/deploy_key
           ssh-keyscan -H 89.167.87.55 >> ~/.ssh/known_hosts
 
