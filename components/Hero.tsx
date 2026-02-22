@@ -137,16 +137,16 @@ const Hero: React.FC = () => {
 
           <div className='order-1 lg:order-2 flex justify-center lg:justify-end'>
             <ScrollReveal delay={400} className='w-full max-w-md lg:max-w-full'>
-              <div className='relative w-72 h-72 sm:w-96 sm:h-96 lg:w-[500px] lg:h-[500px]'>
+              <div className='relative w-72 h-72 sm:w-96 sm:h-96 lg:w-[500px] lg:h-[500px] aspect-square'>
                 {/* Rotating glow */}
                 <div className='absolute inset-0 bg-gradient-to-tr from-brand-500 to-purple-500 rounded-full blur-[100px] opacity-40 animate-pulse'></div>
 
-                <div className='relative w-full h-full rounded-[3rem] overflow-hidden border-8 border-white dark:border-slate-800 shadow-2xl rotate-3 hover:rotate-0 transition-all duration-700 ease-out group'>
+                <div className='relative w-full h-full aspect-square rounded-[3rem] overflow-hidden border-8 border-white dark:border-slate-800 shadow-2xl rotate-3 hover:rotate-0 transition-all duration-700 ease-out group'>
                   <div className='absolute inset-0 bg-brand-600/10 z-10 group-hover:bg-transparent transition-colors'></div>
                   <img
                     src={PERSONAL_INFO.avatar}
                     alt={PERSONAL_INFO.name}
-                    className='w-full h-full object-cover scale-110 group-hover:scale-100 transition-transform duration-700'
+                    className='w-full h-full object-cover object-[50%_10%] group-hover:scale-100 transition-transform duration-700'
                   />
                 </div>
 

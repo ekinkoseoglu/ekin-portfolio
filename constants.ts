@@ -1,3 +1,4 @@
+import portfolioImg from './assets/Portfolio.jpeg';
 import {
   Education,
   Experience,
@@ -17,7 +18,7 @@ export const PERSONAL_INFO = {
   about: `Ekin Deniz Köseoğlu is a Full Stack Software Engineer driven by passion and innovation. He began his academic journey in 2017 at Karabuk University, Turkey, studying Electrical and Electronics Engineering.
 
   He specializes in Javascript, React, Angular, NodeJS, NestJS, .NET, various SQL technologies and Git. Beyond coding, he is fascinated by AI, Machine Learning, Deep Learning, entrepreneurship, and project management. He currently works as both a technical leader and manager for various startup projects.`,
-  avatar: 'https://github.com/ekinkoseoglu.png', // Using GitHub avatar
+  avatar: portfolioImg,
 };
 
 export const EXPERIENCES: Experience[] = [
