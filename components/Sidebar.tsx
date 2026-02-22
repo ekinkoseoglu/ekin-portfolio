@@ -234,7 +234,7 @@ const Sidebar: React.FC = () => {
                   <Github size={20} />
                 </a>
                 <a
-                  href='https://linkedin.com/in/ekinkoseoglu'
+                  href='https://linkedin.com/in/koseogluekin'
                   target='_blank'
                   rel='noreferrer'
                   className='p-3 text-slate-400 hover:text-[#0077b5] hover:bg-slate-100 dark:hover:bg-slate-800 rounded-2xl transition-all hover:scale-110'
