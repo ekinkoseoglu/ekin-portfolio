@@ -178,14 +178,14 @@ const MainPage: React.FC = () => {
       <PortfolioSection />
 
       {/* Testimonial Section - Visual Break */}
-      <section className='py-32 bg-slate-900 dark:bg-black text-white relative overflow-hidden transition-colors duration-300'>
+      <section className='py-32 bg-slate-50 dark:bg-black text-slate-900 dark:text-white relative overflow-hidden transition-colors duration-300'>
         <div className='absolute top-0 left-0 w-full h-full overflow-hidden opacity-20 pointer-events-none'>
-          <div className='absolute -top-[50%] -left-[50%] w-[200%] h-[200%] bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-brand-900 via-slate-950 to-transparent animate-spin-slow'></div>
+          <div className='absolute -top-[50%] -left-[50%] w-[200%] h-[200%] bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-brand-200 via-slate-50 to-transparent dark:from-brand-900 dark:via-slate-950 dark:to-transparent animate-spin-slow'></div>
         </div>
 
         <div className='max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10'>
           <ScrollReveal>
-            <Quote className='h-16 w-16 text-brand-500 mx-auto mb-8 opacity-50' />
+            <Quote className='h-16 w-16 text-brand-500 dark:text-brand-500 mx-auto mb-8 opacity-50' />
             <blockquote className='text-2xl md:text-4xl font-medium leading-relaxed mb-10'>
               "{TESTIMONIAL.text}"
             </blockquote>
@@ -193,7 +193,9 @@ const MainPage: React.FC = () => {
               <cite className='not-italic font-bold text-xl'>
                 {TESTIMONIAL.name}
               </cite>
-              <span className='text-brand-300 mt-1'>{TESTIMONIAL.role}</span>
+              <span className='text-brand-600 dark:text-brand-300 mt-1'>
+                {TESTIMONIAL.role}
+              </span>
             </div>
           </ScrollReveal>
         </div>
