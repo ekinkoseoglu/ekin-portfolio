@@ -37,8 +37,8 @@ const App: React.FC = () => {
             <footer className='bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 py-12 transition-colors duration-300'>
               <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center'>
                 <p className='text-slate-500 dark:text-slate-400 text-sm font-medium'>
-                  © {new Date().getFullYear()} Ekin DENİZ BABA Köseoğlu. All
-                  rights reserved.
+                  © {new Date().getFullYear()} Ekin Köseoğlu. All rights
+                  reserved.
                 </p>
                 <div className='flex space-x-6 mt-4 md:mt-0'>
                   <span className='text-slate-400 text-sm'>
