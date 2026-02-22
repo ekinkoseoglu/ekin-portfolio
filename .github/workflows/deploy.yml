@@ -11,15 +11,13 @@ jobs:
 
     steps:
       - name: Setup SSH
-        run: |
-          mkdir -p ~/.ssh
-          echo "${{ secrets.SSH_PRIVATE_KEY }}" | sed 's/\r$//' > ~/.ssh/deploy_key
-          chmod 600 ~/.ssh/deploy_key
-          ssh-keyscan -H 89.167.87.55 >> ~/.ssh/known_hosts
+        uses: webfactory/ssh-agent@v0.8.0
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
 
       - name: Deploy to Server
         run: |
-          ssh -i ~/.ssh/deploy_key ekin@89.167.87.55 << 'EOF'
+          ssh -o StrictHostKeyChecking=no ekin@89.167.87.55 << 'EOF'
             cd /srv/portfolio/ekin-portfolio
             git pull origin main
             docker compose up -d --build
