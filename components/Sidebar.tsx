@@ -43,52 +43,16 @@ const Sidebar: React.FC = () => {
     };
   }, []);
 
-  const smoothScrollTo = (targetPosition: number, duration: number = 1200) => {
-    const startPosition = window.pageYOffset;
-    const distance = targetPosition - startPosition;
-    let startTime: number | null = null;
-
-    const animation = (currentTime: number) => {
-      if (startTime === null) startTime = currentTime;
-      const timeElapsed = currentTime - startTime;
-      const progress = Math.min(timeElapsed / duration, 1);
-
-      // Easing function for smooth deceleration
-      const ease = (t: number) =>
-        t < 0.5 ? 4 * t * t * t : (t - 1) * (2 * t - 2) * (2 * t - 2) + 1;
-
-      window.scrollTo(0, startPosition + distance * ease(progress));
-
-      if (timeElapsed < duration) {
-        requestAnimationFrame(animation);
-      }
-    };
-
-    requestAnimationFrame(animation);
-  };
-
   const scrollToSection = (id: string) => {
     const element = document.getElementById(id);
+    if (!element) return;
 
-    if (element) {
-      const targetPosition = element.offsetTop;
+    // Scroll immediately via JS — no CSS scroll-behavior dependency
+    element.scrollIntoView({ behavior: 'smooth', block: 'start' });
 
-      // Add slide-in animation to the target section
-      element.classList.remove('section-slide-in');
-      void element.offsetWidth;
-      element.classList.add('section-slide-in');
-
-      // Custom smooth scroll with visible animation
-      smoothScrollTo(targetPosition, 1200);
-
-      setActiveSection(id);
-      setIsMobileMenuOpen(false);
-
-      // Clean up the class after animation finishes
-      setTimeout(() => {
-        element.classList.remove('section-slide-in');
-      }, 700);
-    }
+    // Update state after triggering scroll to avoid re-render delay
+    setActiveSection(id);
+    setIsMobileMenuOpen(false);
   };
 
   const navItems = [
@@ -123,7 +87,7 @@ const Sidebar: React.FC = () => {
         className={`
           fixed left-0 top-0 h-full z-40
           flex flex-col
-          bg-white/80 dark:bg-slate-950/80 backdrop-blur-2xl
+          bg-white/80 dark:bg-slate-950/80 backdrop-blur-lg
           border-r border-slate-200/50 dark:border-slate-800/50
           shadow-[4px_0_24px_rgba(0,0,0,0.02)] dark:shadow-[4px_0_24px_rgba(0,0,0,0.2)]
           transition-[width,transform] duration-500 cubic-bezier(0.4, 0, 0.2, 1)

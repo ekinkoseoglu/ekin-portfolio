@@ -1,5 +1,5 @@
-<!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<!doctype html>
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -85,11 +85,18 @@
         background: #475569;
       }
 
-      /* Global Smooth Transition */
-      *,
-      *::before,
-      *::after {
-        transition-property: background-color, border-color, color, fill, stroke;
+      /* Scroll anchoring fix for Chrome */
+      * {
+        overflow-anchor: none;
+      }
+
+      /* Theme transitions scoped to avoid scroll performance issues */
+      .theme-transition,
+      .theme-transition *,
+      .theme-transition *::before,
+      .theme-transition *::after {
+        transition-property:
+          background-color, border-color, color, fill, stroke;
         transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
         transition-duration: 300ms;
       }

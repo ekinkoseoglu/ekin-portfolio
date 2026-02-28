@@ -4,49 +4,12 @@ import { PERSONAL_INFO } from '../constants';
 import ScrollReveal from './ScrollReveal';
 
 const Hero: React.FC = () => {
-  const smoothScrollTo = (targetPosition: number, duration: number = 1200) => {
-    const startPosition = window.pageYOffset;
-    const distance = targetPosition - startPosition;
-    let startTime: number | null = null;
-
-    const animation = (currentTime: number) => {
-      if (startTime === null) startTime = currentTime;
-      const timeElapsed = currentTime - startTime;
-      const progress = Math.min(timeElapsed / duration, 1);
-
-      // Easing function for smooth deceleration
-      const ease = (t: number) =>
-        t < 0.5 ? 4 * t * t * t : (t - 1) * (2 * t - 2) * (2 * t - 2) + 1;
-
-      window.scrollTo(0, startPosition + distance * ease(progress));
-
-      if (timeElapsed < duration) {
-        requestAnimationFrame(animation);
-      }
-    };
-
-    requestAnimationFrame(animation);
-  };
-
   const scrollToSection = (id: string) => {
     const element = document.getElementById(id);
+    if (!element) return;
 
-    if (element) {
-      const targetPosition = element.offsetTop;
-
-      // Add slide-in animation to the target section
-      element.classList.remove('section-slide-in');
-      void element.offsetWidth;
-      element.classList.add('section-slide-in');
-
-      // Custom smooth scroll
-      smoothScrollTo(targetPosition, 1200);
-
-      // Clean up after animation
-      setTimeout(() => {
-        element.classList.remove('section-slide-in');
-      }, 700);
-    }
+    // Scroll immediately via JS — no CSS scroll-behavior dependency
+    element.scrollIntoView({ behavior: 'smooth', block: 'start' });
   };
 
   const scrollToPortfolio = () => scrollToSection('portfolio');
