@@ -1,11 +1,14 @@
 import React from 'react';
 import { useParams, Link, Navigate } from 'react-router-dom';
 import { ArrowLeft, Github, ExternalLink, Calendar } from 'lucide-react';
-import { PROJECTS } from '../constants';
+import { PROJECTS, VIBE_CODED_PROJECTS } from '../constants';
 
 const ProjectDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>();
-  const project = PROJECTS.find((p) => p.id === id);
+  const project =
+    PROJECTS.find((p) => p.id === id) ??
+    VIBE_CODED_PROJECTS.find((p) => p.id === id);
+  const isVibeCoded = VIBE_CODED_PROJECTS.some((p) => p.id === id);
 
   if (!project) {
     return <Navigate to="/portfolio" replace />;
@@ -28,6 +31,15 @@ const ProjectDetail: React.FC = () => {
           <div className="bg-slate-900 dark:bg-slate-800 text-white p-8 md:p-12 relative overflow-hidden">
             <div className="absolute top-0 right-0 w-64 h-64 bg-brand-600 opacity-10 rounded-full blur-3xl -mr-16 -mt-16"></div>
             <div className="relative z-10">
+              {project.image && (
+                <div className="mb-6 -mx-8 md:-mx-12 -mt-8 md:-mt-12 overflow-hidden border-b border-white/10 shadow-lg">
+                  <img
+                    src={project.image}
+                    alt={`${project.title} logo`}
+                    className="w-full h-auto block"
+                  />
+                </div>
+              )}
               <div className="flex flex-wrap gap-2 mb-4">
                 {project.techStack.map((tech) => (
                   <span key={tech} className="px-3 py-1 bg-white/10 backdrop-blur-sm rounded-full text-xs font-medium text-brand-200">
@@ -53,7 +65,7 @@ const ProjectDetail: React.FC = () => {
                     className="inline-flex items-center px-5 py-2.5 bg-white text-slate-900 rounded-lg font-bold hover:bg-slate-100 transition-colors"
                   >
                     <Github size={20} className="mr-2" />
-                    View Source
+                    {isVibeCoded ? 'View on GitHub' : 'View Source'}
                   </a>
                 )}
                 {project.link && (

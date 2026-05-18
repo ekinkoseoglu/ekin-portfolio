@@ -2,12 +2,20 @@ import { ArrowRight, Briefcase, GraduationCap, MapPin } from 'lucide-react';
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import ScrollReveal from '../components/ScrollReveal';
-import { EDUCATION, EXPERIENCES, PROJECTS } from '../constants';
+import {
+  EDUCATION,
+  EXPERIENCES,
+  PROJECTS,
+  VIBE_CODED_PROJECTS,
+} from '../constants';
+
+type PortfolioTab = 'experience' | 'projects' | 'vibe-coded';
 
 const PortfolioSection: React.FC = () => {
-  const [activeTab, setActiveTab] = useState<'experience' | 'projects'>(
-    'experience'
-  );
+  const [activeTab, setActiveTab] = useState<PortfolioTab>('experience');
+
+  const projectsForTab =
+    activeTab === 'vibe-coded' ? VIBE_CODED_PROJECTS : PROJECTS;
 
   return (
     <section
@@ -28,8 +36,8 @@ const PortfolioSection: React.FC = () => {
               My Journey
             </h3>
             <p className='max-w-2xl mx-auto text-lg text-slate-600 dark:text-slate-400'>
-              A timeline of my professional career, education, and the
-              open-source projects I've built.
+              A timeline of my professional career, education, the open-source
+              projects I've built, and the indie products I'm vibe-coding.
             </p>
           </div>
         </ScrollReveal>
@@ -57,6 +65,16 @@ const PortfolioSection: React.FC = () => {
                 }`}
               >
                 Projects
+              </button>
+              <button
+                onClick={() => setActiveTab('vibe-coded')}
+                className={`px-8 py-3 rounded-xl text-sm font-bold transition-all duration-300 ${
+                  activeTab === 'vibe-coded'
+                    ? 'bg-brand-600 text-white shadow-md transform scale-105'
+                    : 'text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400'
+                }`}
+              >
+                Vibe Coded
               </button>
             </div>
           </div>
@@ -159,21 +177,31 @@ const PortfolioSection: React.FC = () => {
           </div>
         ) : (
           <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8'>
-            {PROJECTS.map((project, index) => (
+            {projectsForTab.map((project, index) => (
               <ScrollReveal key={index} delay={index * 100}>
                 <div className='bg-white dark:bg-slate-900 rounded-3xl overflow-hidden shadow-sm border border-slate-100 dark:border-slate-800 hover:shadow-2xl hover:-translate-y-2 transition-all duration-500 flex flex-col group h-full'>
-                  <div className='h-48 bg-gradient-to-br from-slate-100 to-slate-200 dark:from-slate-800 dark:to-slate-950 p-6 flex items-center justify-center relative overflow-hidden'>
-                    {/* Abstract Tech Patterns */}
-                    <div className='absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-brand-500/20 via-slate-200/0 to-transparent dark:via-slate-900/0'></div>
-                    <div className='absolute inset-0 bg-brand-600 opacity-0 group-hover:opacity-10 transition-opacity duration-500'></div>
+                  {project.image ? (
+                    <div className='h-48 relative overflow-hidden'>
+                      <img
+                        src={project.image}
+                        alt={`${project.title} logo`}
+                        className='absolute inset-0 w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500'
+                      />
+                    </div>
+                  ) : (
+                    <div className='h-48 bg-gradient-to-br from-slate-100 to-slate-200 dark:from-slate-800 dark:to-slate-950 p-6 flex items-center justify-center relative overflow-hidden'>
+                      {/* Abstract Tech Patterns */}
+                      <div className='absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-brand-500/20 via-slate-200/0 to-transparent dark:via-slate-900/0'></div>
+                      <div className='absolute inset-0 bg-brand-600 opacity-0 group-hover:opacity-10 transition-opacity duration-500'></div>
 
-                    <h3 className='text-2xl font-bold text-slate-900 dark:text-white text-center z-10 transform group-hover:scale-105 transition-transform duration-300'>
-                      {project.title}
-                    </h3>
+                      <h3 className='text-2xl font-bold text-slate-900 dark:text-white text-center z-10 transform group-hover:scale-105 transition-transform duration-300'>
+                        {project.title}
+                      </h3>
 
-                    {/* Glow Effect */}
-                    <div className='absolute -bottom-10 -right-10 w-32 h-32 bg-brand-500/20 rounded-full blur-2xl group-hover:bg-brand-500/40 transition-colors duration-500'></div>
-                  </div>
+                      {/* Glow Effect */}
+                      <div className='absolute -bottom-10 -right-10 w-32 h-32 bg-brand-500/20 rounded-full blur-2xl group-hover:bg-brand-500/40 transition-colors duration-500'></div>
+                    </div>
+                  )}
 
                   <div className='p-8 flex-1 flex flex-col'>
                     <div className='text-xs font-bold tracking-widest text-brand-600 dark:text-brand-400 uppercase mb-3'>

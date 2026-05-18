@@ -18,6 +18,7 @@ export interface Project {
   repoLink?: string;
   period: string;
   role?: string;
+  image?: string; // Optional logo/image rendered in card and detail headers
 }
 
 export interface SkillCategory {

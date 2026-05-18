@@ -1,4 +1,5 @@
 import portfolioImg from './assets/Portfolio.jpeg';
+import ourLoveCanvasLogo from './assets/our-love-canvas-logo.png';
 import {
   Education,
   Experience,
@@ -426,6 +427,105 @@ export const PROJECTS: Project[] = [
     detailedContent: `
       <h2>Laravel Dental Company API (Back-End)</h2>
       <p>This project has created for testing Controllers actions on Models that represents Wordpress tables for API creation in Laravel Framework.</p>
+    `,
+  },
+];
+
+export const VIBE_CODED_PROJECTS: Project[] = [
+  {
+    id: 'our-love-canvas',
+    title: 'OurLoveCanvas',
+    period: '2025 - Present',
+    image: ourLoveCanvasLogo,
+    description:
+      'SaaS platform that lets users build romantic, personalized websites for their loved ones from a gallery of templates, with a seamless preview → payment → publish flow and a hosted custom subdomain.',
+    techStack: [
+      'React 19',
+      'TypeScript',
+      'NestJS 11',
+      'Prisma',
+      'MySQL',
+      'Stripe',
+      'Cloudflare R2',
+      'Docker',
+      'Nginx',
+      'i18next',
+    ],
+    repoLink: 'https://github.com/ekinkoseoglu',
+    detailedContent: `
+      <h2>OurLoveCanvas — Personalized Romantic Websites</h2>
+      <p>OurLoveCanvas is a full-stack SaaS product I designed and built end-to-end. It empowers anyone to create a beautifully personalized website for someone they love — from a curated library of romantic templates — and publish it on a custom subdomain that can be shared with a single link.</p>
+
+      <h3>Product Highlights</h3>
+      <ul>
+        <li><strong>Template gallery &amp; live customization</strong> — users browse a catalog of romantic landing-page templates, personalize text, images and media, and watch their changes render in real time.</li>
+        <li><strong>Three-step preview pipeline</strong> — create website record → batch-upload compressed images to Cloudflare R2 → finalize HTML preview.</li>
+        <li><strong>Stripe-powered checkout</strong> — payments are confirmed via Stripe webhooks; once published, sites are locked to protect the customer's final version.</li>
+        <li><strong>Personalized hosted sites</strong> — every published canvas is served on a custom subdomain (<code>websiteId.username.ourlovecanvas.com</code>).</li>
+        <li><strong>Authentication</strong> — email / username / password registration <em>plus</em> Google OAuth, backed by JWT and bcrypt with hash + salt fields.</li>
+        <li><strong>Internationalization</strong> — i18next with browser language detection, ready for global users.</li>
+      </ul>
+
+      <h3>Engineering</h3>
+      <ul>
+        <li><strong>Frontend:</strong> React 19 + TypeScript + Vite, Redux Toolkit, React Router, MUI 9 with custom branding (Playfair Display + Plus Jakarta Sans), Sass modules, Axios.</li>
+        <li><strong>Backend:</strong> NestJS 11 with Prisma ORM on MySQL 8, Passport.js (JWT + Google OAuth), Stripe SDK, Nodemailer.</li>
+        <li><strong>Infrastructure:</strong> Multi-stage Docker builds, separate <code>docker-compose</code> stacks for dev and prod, Nginx reverse proxy with SPA routing, Sentry for error tracking, Winston for structured logging.</li>
+        <li><strong>Data layer:</strong> Soft-delete enforced everywhere (<code>isDeleted</code>, <code>deletedAt</code>, <code>deletedBy</code>) with full audit trail (<code>createdBy</code> / <code>updatedBy</code>).</li>
+        <li><strong>Image pipeline:</strong> Browser-side compression to ≤0.5 MB before parallel batch upload to R2 with UUID + timestamp keys.</li>
+        <li><strong>API contract:</strong> Standardized JSON envelope <code>{success, message, data, timestamp}</code> across every endpoint.</li>
+      </ul>
+
+      <h3>Status</h3>
+      <p>Production-ready architecture with TLS/HTTPS support, health checks, and environment-variable configuration. Currently an advanced MVP with active feature development. Repository is private — see the GitHub profile link above for related work.</p>
+    `,
+  },
+  {
+    id: 'post-creator',
+    title: 'PostCreator',
+    period: '2025 - Present',
+    description:
+      'AI-powered content operating system that generates, reviews, and publishes platform-native posts across X, LinkedIn, Instagram, YouTube, TikTok, and Medium using an 8-agent OpenRouter pipeline with a human-in-the-loop approval workflow.',
+    techStack: [
+      'Turborepo',
+      'NestJS 10',
+      'React 18',
+      'Vite',
+      'Prisma',
+      'MySQL',
+      'Redis',
+      'BullMQ',
+      'OpenRouter',
+      'Tailwind CSS',
+      'TanStack Query',
+      'Docker',
+    ],
+    repoLink: 'https://github.com/ekinkoseoglu',
+    detailedContent: `
+      <h2>PostCreator — AI Content OS for Social Channels</h2>
+      <p>PostCreator is a production-grade content generation and publishing system I built for the OurLoveCanvas brand. It uses an 8-agent AI pipeline to draft platform-native posts, routes them through a human review workflow, and publishes them across six social platforms — with real X (Twitter) OAuth integration shipping live posts.</p>
+
+      <h3>Product Highlights</h3>
+      <ul>
+        <li><strong>8-stage AI agent pipeline</strong> — brand strategist → audience research → campaign planning → platform adaptation → creative writing → taste &amp; safety review → revision agents. Powered by OpenRouter (Claude 3.5 Sonnet for reasoning, GPT-4o-mini for writing) with Zod-validated structured outputs.</li>
+        <li><strong>Six-platform publishing</strong> — X (Twitter), LinkedIn, Instagram, YouTube, TikTok, Medium. Real OAuth 2.0 PKCE flow for X; mock providers for the rest, with a progressive rollout strategy.</li>
+        <li><strong>Human-in-the-loop approval</strong> — finite-state machine <code>NEEDS_REVIEW → APPROVED → PUBLISHED</code> with edit-revert logic, rejection feedback, and an immutable <code>ApprovalEvent</code> audit log. AI can never approve or publish — only humans can.</li>
+        <li><strong>Asynchronous job processing</strong> — BullMQ on Redis for content generation and email notifications; automatic retry with exponential backoff (3 attempts).</li>
+        <li><strong>Publish safety lock</strong> — 10-rule policy engine prevents unapproved or already-published posts from being re-published.</li>
+      </ul>
+
+      <h3>Engineering</h3>
+      <ul>
+        <li><strong>Monorepo:</strong> npm workspaces + Turborepo v2 with full type safety across apps and workers. Shared packages: <code>@olc/shared</code>, <code>@olc/ai-agents</code>, <code>@olc/social-providers</code>, <code>@olc/email</code>, <code>@olc/storage</code>, <code>@olc/analytics</code>.</li>
+        <li><strong>Backend:</strong> NestJS 10 REST API + Prisma v5 ORM on MySQL, Redis for cache + queues, class-validator / class-transformer for DTOs.</li>
+        <li><strong>Frontend:</strong> React 18 + Vite 5, Tailwind CSS v3, TanStack Query v5 for server state.</li>
+        <li><strong>Security:</strong> AES-256-GCM encrypted token storage for OAuth credentials.</li>
+        <li><strong>Resilience:</strong> Feature flags (<code>MOCK_AI</code>, <code>MOCK_EMAIL</code>, <code>MOCK_STORAGE</code>, <code>MOCK_SOCIAL_PUBLISH</code>) allow full local dev without external API keys.</li>
+        <li><strong>Containerization:</strong> Docker Compose with MySQL 8 + Redis 7-alpine.</li>
+      </ul>
+
+      <h3>Status</h3>
+      <p>Advanced MVP — 10 of 15 planned milestones complete. Core workflows (generate → review → publish) are fully functional with live OpenRouter AI and live X publishing. Remaining work: LangGraph workflow agents, R2 asset storage, and final hardening. Repository is private — see the GitHub profile link above for related work.</p>
     `,
   },
 ];
