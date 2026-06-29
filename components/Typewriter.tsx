@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 interface TypewriterSegment {
   text: string;
@@ -16,6 +16,8 @@ interface TypewriterProps {
   startDelay?: number;
   /** Remove the caret once typing completes (e.g. when another typer takes over). */
   hideCaretOnComplete?: boolean;
+  /** Called once when the full text has finished typing. */
+  onComplete?: () => void;
   className?: string;
 }
 
@@ -28,6 +30,7 @@ const Typewriter: React.FC<TypewriterProps> = ({
   speed = 85,
   startDelay = 400,
   hideCaretOnComplete = false,
+  onComplete,
   className = '',
 }) => {
   const totalChars = segments.reduce(
@@ -42,6 +45,7 @@ const Typewriter: React.FC<TypewriterProps> = ({
   );
 
   const isDone = typedCount >= totalChars;
+  const hasCompletedRef = useRef(false);
 
   useEffect(() => {
     if (isDone) return;
@@ -51,6 +55,14 @@ const Typewriter: React.FC<TypewriterProps> = ({
 
     return () => clearTimeout(timer);
   }, [typedCount, isDone, speed, startDelay]);
+
+  // Notify the parent exactly once when the text is fully typed.
+  useEffect(() => {
+    if (isDone && !hasCompletedRef.current) {
+      hasCompletedRef.current = true;
+      onComplete?.();
+    }
+  }, [isDone, onComplete]);
 
   // The caret sits at the end of the segment that is currently being typed.
   const activeIndex = (() => {

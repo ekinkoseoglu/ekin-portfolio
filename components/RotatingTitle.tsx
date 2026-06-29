@@ -11,7 +11,9 @@ interface RotatingTitleProps {
   holdDuration?: number;
   /** Pause after a title is cleared, before the next one types (ms). */
   pauseBetween?: number;
-  /** Delay before the cycle starts — used to begin after the name finishes (ms). */
+  /** When false the cycle waits; set true to begin (e.g. after the name finishes typing). */
+  start?: boolean;
+  /** Delay after `start` becomes true before the first title types (ms). */
   startDelay?: number;
   className?: string;
 }
@@ -26,7 +28,8 @@ const RotatingTitle: React.FC<RotatingTitleProps> = ({
   deletingSpeed = 30,
   holdDuration = 1400,
   pauseBetween = 350,
-  startDelay = 1500,
+  start = true,
+  startDelay = 300,
   className = '',
 }) => {
   const [reduceMotion] = useState(prefersReducedMotion);
@@ -35,13 +38,13 @@ const RotatingTitle: React.FC<RotatingTitleProps> = ({
   const [charCount, setCharCount] = useState(0);
   const [isDeleting, setIsDeleting] = useState(false);
 
-  // Start the cycle after the initial delay so it follows the name animation.
+  // Begin once the parent signals `start` (e.g. after the name finishes typing).
   useEffect(() => {
-    if (reduceMotion) return;
+    if (reduceMotion || !start) return;
 
     const timer = setTimeout(() => setStarted(true), startDelay);
     return () => clearTimeout(timer);
-  }, [reduceMotion, startDelay]);
+  }, [reduceMotion, start, startDelay]);
 
   useEffect(() => {
     if (reduceMotion || !started || phrases.length === 0) return;

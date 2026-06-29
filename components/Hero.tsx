@@ -1,11 +1,13 @@
 import { ArrowRight, ChevronDown, Github, Linkedin, Mail } from 'lucide-react';
-import React from 'react';
+import React, { useState } from 'react';
 import { PERSONAL_INFO, ROLES } from '../constants';
 import RotatingTitle from './RotatingTitle';
 import ScrollReveal from './ScrollReveal';
 import Typewriter from './Typewriter';
 
 const Hero: React.FC = () => {
+  const [nameDone, setNameDone] = useState(false);
+
   const scrollToSection = (id: string) => {
     const element = document.getElementById(id);
     if (!element) return;
@@ -35,6 +37,7 @@ const Hero: React.FC = () => {
                 <Typewriter
                   speed={50}
                   hideCaretOnComplete
+                  onComplete={() => setNameDone(true)}
                   segments={[
                     { text: "Hi, I'm" },
                     {
@@ -50,7 +53,7 @@ const Hero: React.FC = () => {
 
             <ScrollReveal delay={300}>
               <p className='text-2xl sm:text-3xl font-bold mb-8 min-h-[2rem] sm:min-h-[2.25rem] whitespace-nowrap'>
-                <RotatingTitle phrases={ROLES} />
+                <RotatingTitle phrases={ROLES} start={nameDone} />
               </p>
             </ScrollReveal>
 
