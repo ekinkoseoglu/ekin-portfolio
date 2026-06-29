@@ -2,6 +2,7 @@ import { ArrowRight, ChevronDown, Github, Linkedin, Mail } from 'lucide-react';
 import React from 'react';
 import { PERSONAL_INFO } from '../constants';
 import ScrollReveal from './ScrollReveal';
+import Typewriter from './Typewriter';
 
 const Hero: React.FC = () => {
   const scrollToSection = (id: string) => {
@@ -28,19 +29,19 @@ const Hero: React.FC = () => {
       <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative w-full'>
         <div className='grid grid-cols-1 lg:grid-cols-2 gap-12 items-center'>
           <div className='order-2 lg:order-1'>
-            <ScrollReveal>
-              <div className='inline-flex items-center px-3 py-1 rounded-full bg-white/50 dark:bg-slate-800/50 backdrop-blur-md border border-brand-200 dark:border-brand-800 text-brand-800 dark:text-brand-300 text-sm font-medium mb-6 shadow-sm'>
-                <span className='flex h-2 w-2 rounded-full bg-brand-600 dark:bg-brand-400 mr-2 animate-pulse'></span>
-                Available for new opportunities
-              </div>
-            </ScrollReveal>
-
             <ScrollReveal delay={200}>
               <h1 className='text-5xl tracking-tight font-extrabold text-slate-900 dark:text-white sm:text-6xl md:text-7xl mb-6'>
-                Hi, I'm <br />
-                <span className='text-transparent bg-clip-text bg-gradient-to-r from-brand-600 to-indigo-600 dark:from-brand-400 dark:to-indigo-400'>
-                  {PERSONAL_INFO.name}
-                </span>
+                <Typewriter
+                  segments={[
+                    { text: "Hi, I'm" },
+                    {
+                      text: PERSONAL_INFO.name,
+                      breakBefore: true,
+                      className:
+                        'text-transparent bg-clip-text bg-gradient-to-r from-brand-600 to-indigo-600 dark:from-brand-400 dark:to-indigo-400',
+                    },
+                  ]}
+                />
               </h1>
             </ScrollReveal>
 
