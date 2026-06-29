@@ -22,6 +22,20 @@ export const PERSONAL_INFO = {
   avatar: portfolioImg,
 };
 
+export const ROLES: string[] = [
+  'Software Engineer',
+  'Full Stack Developer',
+  'Indie Hacker',
+  'AI Engineer',
+  'SaaS Builder',
+  'Product Engineer',
+  'Frontend Developer',
+  'React Developer',
+  'Backend Developer',
+  '.NET Developer',
+  'Tech Lead',
+];
+
 export const EXPERIENCES: Experience[] = [
   {
     company: 'Siren Bilişim Yazılım',

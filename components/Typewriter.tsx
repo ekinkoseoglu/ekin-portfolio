@@ -14,6 +14,8 @@ interface TypewriterProps {
   speed?: number;
   /** Delay before the first character is typed, in milliseconds. */
   startDelay?: number;
+  /** Remove the caret once typing completes (e.g. when another typer takes over). */
+  hideCaretOnComplete?: boolean;
   className?: string;
 }
 
@@ -25,6 +27,7 @@ const Typewriter: React.FC<TypewriterProps> = ({
   segments,
   speed = 85,
   startDelay = 400,
+  hideCaretOnComplete = false,
   className = '',
 }) => {
   const totalChars = segments.reduce(
@@ -61,6 +64,7 @@ const Typewriter: React.FC<TypewriterProps> = ({
 
   // Caret stays solid while typing, blinks once the text is complete.
   const caretAnimation = isDone && !reduceMotion ? 'animate-blink' : '';
+  const showCaret = !(isDone && hideCaretOnComplete);
 
   let remaining = typedCount;
 
@@ -77,7 +81,7 @@ const Typewriter: React.FC<TypewriterProps> = ({
           <React.Fragment key={index}>
             {segment.breakBefore && <br />}
             <span className={segment.className}>{visibleText}</span>
-            {index === activeIndex && (
+            {index === activeIndex && showCaret && (
               <span
                 aria-hidden='true'
                 className={`inline-block w-[3px] sm:w-1 ml-2 rounded-full align-middle bg-brand-500 dark:bg-brand-400 ${caretAnimation}`}

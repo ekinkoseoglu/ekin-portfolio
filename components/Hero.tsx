@@ -1,6 +1,7 @@
 import { ArrowRight, ChevronDown, Github, Linkedin, Mail } from 'lucide-react';
 import React from 'react';
-import { PERSONAL_INFO } from '../constants';
+import { PERSONAL_INFO, ROLES } from '../constants';
+import RotatingTitle from './RotatingTitle';
 import ScrollReveal from './ScrollReveal';
 import Typewriter from './Typewriter';
 
@@ -30,8 +31,10 @@ const Hero: React.FC = () => {
         <div className='grid grid-cols-1 lg:grid-cols-2 gap-12 items-center'>
           <div className='order-2 lg:order-1'>
             <ScrollReveal delay={200}>
-              <h1 className='text-5xl tracking-tight font-extrabold text-slate-900 dark:text-white sm:text-6xl md:text-7xl mb-6'>
+              <h1 className='text-5xl tracking-tight font-extrabold text-slate-900 dark:text-white sm:text-6xl md:text-7xl mb-4'>
                 <Typewriter
+                  speed={50}
+                  hideCaretOnComplete
                   segments={[
                     { text: "Hi, I'm" },
                     {
@@ -45,9 +48,14 @@ const Hero: React.FC = () => {
               </h1>
             </ScrollReveal>
 
+            <ScrollReveal delay={300}>
+              <p className='text-2xl sm:text-3xl font-bold mb-8 min-h-[2rem] sm:min-h-[2.25rem] whitespace-nowrap'>
+                <RotatingTitle phrases={ROLES} />
+              </p>
+            </ScrollReveal>
+
             <ScrollReveal delay={400}>
               <p className='text-xl text-slate-600 dark:text-slate-400 mb-8 max-w-2xl leading-relaxed'>
-                {PERSONAL_INFO.title}. <br />
                 Crafting exceptional digital experiences with a focus on
                 performance, accessibility, and modern aesthetics.
               </p>
